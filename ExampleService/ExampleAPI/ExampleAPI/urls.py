@@ -14,8 +14,9 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include 
 
 urlpatterns = [
+    path("api/", include("Test.urls")),  # Test app 안에 있는 api 접속시 url을 www.***.*/api 사용
     path('admin/', admin.site.urls),
 ]
