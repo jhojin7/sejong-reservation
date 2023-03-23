@@ -1,0 +1,17 @@
+* 예시 백엔드 서비스
+django + djangorestframework + sqlite3(추후 db 서비스로 대체 예정) 로 만듬 
+** 로컬에서 실행
+#+NAME: 로컬에서 실행 
+#+BEGIN_SRC bash
+  cd ExampleService/ExampleAPI
+  ./manage.py runserver 
+#+END_SRC
+
+** 컨테이너로 실행 
+#+NAME: 컨테이너 실행 
+#+BEGIN_SRC bash
+  cd ExampleService
+  docker build -t example-service .
+  docker run -p 8000:80000 example-service 
+#+END_SRC
+
