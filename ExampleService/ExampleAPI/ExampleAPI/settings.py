@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 
+import os
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +27,7 @@ SECRET_KEY = 'django-insecure-2@_ak=mu*hg5^@fe(zh3cct&(t(j4ri5=t#anowcgm2d8b0d&_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"]
 
 
 # Application definition
@@ -88,13 +90,29 @@ REST_FRAMEWORK = {
     ]
 }
 
+# sqlite3 config
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
+# mongodb config
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'djongo',
+        'NAME': os.getenv("DB_NAME"),
+        'CLIENT': {
+            'host': os.getenv("DB_URL"),
+            'port': int(os.getenv("DB_PORT")),
+            "username": os.getenv("DB_USERNAME"),
+            "password": os.getenv("DB_PASSWORD"),
+            "authSource": os.getenv("DB_NAME")
+        }
     }
 }
+
 
 
 # Password validation

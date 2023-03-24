@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  exampleservice:
+    build: ./ExampleService
+    restart: always
+    environment:
+      DB_URL: mongoservice
+      DB_NAME: exampledb
+      DB_PORT: 27017
+      DB_USERNAME: testusr
+      DB_PASSWORD: 1234
+      DJANGO_SUPERUSER_PASSWORD: dksckddjs1!
+      DJANGO_SUPERUSER_EMAIL: test@test.org
+    ports:
+      - "8000:8000"
+
+  mongoservice:
+    image: mongo:6.0-jammy
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: exampledb
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./DBService/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+    command: mongod
