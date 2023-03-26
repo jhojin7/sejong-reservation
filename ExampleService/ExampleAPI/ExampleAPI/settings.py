@@ -99,20 +99,31 @@ REST_FRAMEWORK = {
 # }
 
 # mongodb config
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': os.getenv("DB_NAME"),
+#         'CLIENT': {
+#             'host': os.getenv("DB_URL"),
+#             'port': int(os.getenv("DB_PORT")),
+#             "username": os.getenv("DB_USERNAME"),
+#             "password": os.getenv("DB_PASSWORD"),
+#             "authSource": os.getenv("DB_NAME")
+#         }
+#     }
+# }
+
+# mariadb config
 DATABASES = {
     'default': {
-        'ENGINE': 'djongo',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv("DB_NAME"),
-        'CLIENT': {
-            'host': os.getenv("DB_URL"),
-            'port': int(os.getenv("DB_PORT")),
-            "username": os.getenv("DB_USERNAME"),
-            "password": os.getenv("DB_PASSWORD"),
-            "authSource": os.getenv("DB_NAME")
-        }
+        'USER': os.getenv("DB_USERNAME"),
+        'PASSWORD': os.getenv("DB_PASSWORD"),
+        'HOST': os.getenv("DB_URL"),
+        'PORT': int(os.getenv("DB_PORT")),
     }
 }
-
 
 
 # Password validation

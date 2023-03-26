@@ -4,9 +4,9 @@ services:
     build: ./ExampleService
     restart: always
     environment:
-      DB_URL: mongoservice
+      DB_URL: dbservice
       DB_NAME: exampledb
-      DB_PORT: 27017
+      DB_PORT: 3306
       DB_USERNAME: testusr
       DB_PASSWORD: 1234
       DJANGO_SUPERUSER_PASSWORD: dksckddjs1!
@@ -14,15 +14,14 @@ services:
     ports:
       - "8000:8000"
 
-  mongoservice:
-    image: mongo:6.0-jammy
+  dbservice:
+    image: mariadb:11.0-rc-jammy
     restart: always
+    env_file:
+      ./DBService/maria-env
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
-      MONGO_INITDB_DATABASE: exampledb
-    ports:
-      - "27017:27017"
+      TZ: Asia/Seoul
     volumes:
-      - ./DBService/mongo-init.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
-    command: mongod
+      - ./DBService/maria-init.sql:/docker-entrypoint-initdb.d/maria-init.sql
+    ports:
+      - "3306:3306"
